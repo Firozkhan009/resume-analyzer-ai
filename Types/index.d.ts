@@ -1,5 +1,4 @@
-interface Resume {
-    interface Job {
+interface Job {
     title: string;
     description: string;
     location: string;
@@ -56,5 +55,4 @@ interface Feedback {
             explanation: string;
         }[];
     };
-}
 }
