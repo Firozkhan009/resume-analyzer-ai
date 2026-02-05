@@ -1,42 +1,77 @@
 import type { Route } from "./+types/home";
-import Navbar from "../components/Navbar";
-import { useState } from "react";
-
-type Resume = {
-    id: string;
-    jobTitle: string;
-};
+import Navbar from "~/components/Navbar";
+import ResumeCard from "~/components/ResumeCard";
+import {usePuterStore} from "~/lib/puter";
+import {Link, useNavigate} from "react-router";
+import {useEffect, useState} from "react";
 
 export function meta({}: Route.MetaArgs) {
     return [
-        { title: "ResumeAI" },
-        { name: "description", content: "Welcome to ResumeAI" },
+        { title: "Resumind" },
+        { name: "description", content: "Smart feedback for your dream job!" },
     ];
 }
 
 export default function Home() {
-    const [resume] = useState<Resume[]>([
-        { id: "1", jobTitle: "Software Engineer Intern" },
-        { id: "2", jobTitle: "Backend Developer Intern" },
-    ]);
+    const { auth, kv } = usePuterStore();
+    const navigate = useNavigate();
+    const [resumes, setResumes] = useState<Resume[]>([]);
+    const [loadingResumes, setLoadingResumes] = useState(false);
 
-    return (
-        <main className="bg-[url('/images/bg-main.svg')] bg-cover">
-            <Navbar />
+    useEffect(() => {
+        if(!auth.isAuthenticated) navigate('/auth?next=/');
+    }, [auth.isAuthenticated])
 
-            <section className="main-section">
-                <div className="page-heading">
-                    <h1>Track Your Applications & Resume Analysis</h1>
-                    <h2>Review your Job Applications</h2>
+    useEffect(() => {
+        const loadResumes = async () => {
+            setLoadingResumes(true);
+
+            const resumes = (await kv.list('resume:*', true)) as KVItem[];
+
+            const parsedResumes = resumes?.map((resume) => (
+                JSON.parse(resume.value) as Resume
+            ))
+
+            setResumes(parsedResumes || []);
+            setLoadingResumes(false);
+        }
+
+        loadResumes()
+    }, []);
+
+    return <main className="bg-[url('/images/up-new.jpg')] bg-cover">
+        <Navbar />
+
+        <section className="main-section">
+            <div className="page-heading py-16">
+                <h1>Track Your Applications & Resume Ratings</h1>
+                {!loadingResumes && resumes?.length === 0 ? (
+                    <h2>No resumes found. Upload your first resume to get feedback.</h2>
+                ): (
+                    <h2>Review your submissions and check AI-powered feedback.</h2>
+                )}
+            </div>
+            {loadingResumes && (
+                <div className="flex flex-col items-center justify-center">
+                    <img src="/images/resume-scan-2.gif" className="w-[200px]" />
                 </div>
-            </section>
+            )}
 
-            {resume.map((r) => (
-                <div key={r.id}>
-                    <h1>{r.jobTitle}</h1>
+            {!loadingResumes && resumes.length > 0 && (
+                <div className="resumes-section">
+                    {resumes.map((resume) => (
+                        <ResumeCard key={resume.id} resume={resume} />
+                    ))}
                 </div>
-            ))}
-        </main>
-    );
+            )}
+
+            {!loadingResumes && resumes?.length === 0 && (
+                <div className="flex flex-col items-center justify-center mt-10 gap-4">
+                    <Link to="/upload" className="primary-button w-fit text-xl font-semibold">
+                        Upload Resume
+                    </Link>
+                </div>
+            )}
+        </section>
+    </main>
 }
-
