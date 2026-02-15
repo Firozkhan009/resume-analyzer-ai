@@ -317,21 +317,24 @@ export const usePuterStore = create<PuterStore>((set, get) => {
             return;
         }
 
-        // ✅ Use a proper namespaced model id for Puter
-        const model = "anthropic/claude-3.7-sonnet:thinking";
+        const payload: ChatMessage[] = [
+            {
+                role: "user",
+                content: [
+                    { type: "file", puter_path: path },
+                    { type: "text", text: message },
+                ],
+            },
+        ];
 
-        return (await puter.ai.chat(
-            [
-                {
-                    role: "user",
-                    content: [
-                        { type: "file", puter_path: path },
-                        { type: "text", text: message },
-                    ],
-                },
-            ],
-            { model }
-        )) as AIResponse | undefined;
+        try {
+            return (await puter.ai.chat(payload, { model: "anthropic/claude-3.7-sonnet:thinking" })) as
+                | AIResponse
+                | undefined;
+        } catch {
+            // Fall back to provider default model if the configured model is unavailable.
+            return (await puter.ai.chat(payload)) as AIResponse | undefined;
+        }
     };
 
     const img2txt = async (image: string | File | Blob, testMode?: boolean) => {

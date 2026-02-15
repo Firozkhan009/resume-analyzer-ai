@@ -185,6 +185,7 @@ ${AIResponseFormat}
 
 Rules:
 - Scores must be integers from 0 to 100.
+- Scores must be realistic and evidence-based. Do not return all 0 scores.
 - Provide 3 to 4 tips per section.
 - Every tip must include: type, tip, explanation.
 `;

@@ -27,9 +27,9 @@ const Navbar = () => {
                 text-white font-semibold text-sm
                 select-none
               "
-                            title={user.username || user.email}
+                            title={user.username}
                         >
-                            {(user.username || user.email || "U")[0].toUpperCase()}
+                            {(user.username || "U")[0].toUpperCase()}
                         </div>
                     )}
 

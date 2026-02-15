@@ -53,8 +53,8 @@ export async function convertPdfToImage(file: File): Promise<PdfConversionResult
 
         const arrayBuffer = await file.arrayBuffer();
 
-        const pdf = await withTimeout(lib.getDocument({ data: arrayBuffer }).promise, 20000);
-        const page = await withTimeout(pdf.getPage(1), 20000);
+        const pdf: any = await withTimeout(lib.getDocument({ data: arrayBuffer }).promise, 20000);
+        const page: any = await withTimeout(pdf.getPage(1), 20000);
 
         const viewport = page.getViewport({ scale: 2 });
 
