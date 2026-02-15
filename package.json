@@ -14,7 +14,7 @@
     "animate.css": "^4.1.1",
     "clsx": "^2.1.1",
     "isbot": "^5.1.31",
-    "pdfjs-dist": "^5.4.530",
+    "pdfjs-dist": "^5.4.624",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-dropzone": "^14.4.0",

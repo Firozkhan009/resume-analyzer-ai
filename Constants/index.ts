@@ -123,53 +123,38 @@ export const resumes: Resume[] = [
 ];
 
 export const AIResponseFormat = `
-interface Feedback {
-  overallScore: number; // max 100
-
-  ATS: {
-    score: number; // rate based on ATS suitability
-    tips: {
-      type: "good" | "improve";
-      tip: string; // short title
-      explanation: string; // detailed explanation
-    }[]; // 3-4 tips
-  };
-
-  toneAndStyle: {
-    score: number;
-    tips: {
-      type: "good" | "improve";
-      tip: string;
-      explanation: string;
-    }[];
-  };
-
-  content: {
-    score: number;
-    tips: {
-      type: "good" | "improve";
-      tip: string;
-      explanation: string;
-    }[];
-  };
-
-  structure: {
-    score: number;
-    tips: {
-      type: "good" | "improve";
-      tip: string;
-      explanation: string;
-    }[];
-  };
-
-  skills: {
-    score: number;
-    tips: {
-      type: "good" | "improve";
-      tip: string;
-      explanation: string;
-    }[];
-  };
+{
+  "overallScore": 0,
+  "ATS": {
+    "score": 0,
+    "tips": [
+      { "type": "good", "tip": "string", "explanation": "string" }
+    ]
+  },
+  "toneAndStyle": {
+    "score": 0,
+    "tips": [
+      { "type": "good", "tip": "string", "explanation": "string" }
+    ]
+  },
+  "content": {
+    "score": 0,
+    "tips": [
+      { "type": "good", "tip": "string", "explanation": "string" }
+    ]
+  },
+  "structure": {
+    "score": 0,
+    "tips": [
+      { "type": "good", "tip": "string", "explanation": "string" }
+    ]
+  },
+  "skills": {
+    "score": 0,
+    "tips": [
+      { "type": "good", "tip": "string", "explanation": "string" }
+    ]
+  }
 }
 `;
 
@@ -184,15 +169,23 @@ export const prepareInstructions = ({
 You are an ATS + resume reviewer. Analyze the resume against the target job.
 
 Target Job Title: ${jobTitle}
+
 Job Description:
 ${jobDescription}
 
-Return ONLY valid JSON matching this TypeScript interface:
+Return ONLY valid JSON.
+- Do NOT include any markdown.
+- Do NOT include \`\`\` fences.
+- Do NOT include extra text before or after JSON.
+- Do NOT include trailing commas.
+- Include ALL keys exactly as shown, even if some tips are generic.
+
+JSON shape example (follow this structure exactly):
 ${AIResponseFormat}
 
 Rules:
-- Scores are 0-100.
-- Provide 3-4 tips per section.
-- Each tip must include type, tip, and explanation.
+- Scores must be integers from 0 to 100.
+- Provide 3 to 4 tips per section.
+- Every tip must include: type, tip, explanation.
 `;
 };

@@ -1,4 +1,4 @@
-import { type FormEvent, useState } from "react";
+import { type FormEvent, useEffect, useState } from "react";
 import Navbar from "~/components/Navbar";
 import FileUploader from "~/components/FileUploader";
 import { usePuterStore } from "~/lib/puter";
@@ -7,7 +7,6 @@ import { convertPdfToImage } from "~/lib/pdf2img";
 import { generateUUID } from "~/lib/utils";
 import { prepareInstructions } from "../../constants";
 
-// ✅ hard timeout so "Analyzing..." never hangs forever
 const withTimeout = <T,>(promise: Promise<T>, ms = 45000) =>
     Promise.race([
         promise,
@@ -16,16 +15,56 @@ const withTimeout = <T,>(promise: Promise<T>, ms = 45000) =>
         ),
     ]);
 
+const tryParseFeedback = (raw: string): Feedback | null => {
+    const cleaned = raw
+        .trim()
+        .replace(/^```json\s*/i, "")
+        .replace(/^```\s*/i, "")
+        .replace(/```$/i, "")
+        .trim();
+
+    try {
+        return JSON.parse(cleaned) as Feedback;
+    } catch {
+        const start = cleaned.indexOf("{");
+        const end = cleaned.lastIndexOf("}");
+
+        if (start === -1 || end === -1 || end <= start) return null;
+
+        try {
+            return JSON.parse(cleaned.slice(start, end + 1)) as Feedback;
+        } catch {
+            return null;
+        }
+    }
+};
+
 const Upload = () => {
-    const { fs, ai, kv } = usePuterStore();
+    const { fs, ai, kv, auth, isLoading, puterReady } = usePuterStore();
     const navigate = useNavigate();
 
     const [isProcessing, setIsProcessing] = useState(false);
     const [statusText, setStatusText] = useState("");
     const [file, setFile] = useState<File | null>(null);
+    const [hasCheckedAuth, setHasCheckedAuth] = useState(false);
+
+    useEffect(() => {
+        if (!puterReady) return;
+        if (!isLoading) setHasCheckedAuth(true);
+    }, [puterReady, isLoading]);
+
+    useEffect(() => {
+        if (!puterReady || !hasCheckedAuth) return;
+        if (!auth.isAuthenticated) {
+            navigate("/auth?next=/upload", { replace: true });
+        }
+    }, [puterReady, hasCheckedAuth, auth.isAuthenticated, navigate]);
 
     const handleFileSelect = (f: File | null) => {
         setFile(f);
+        if (statusText.startsWith("Error:")) {
+            setStatusText("");
+        }
     };
 
     const stopWithError = (msg: string) => {
@@ -34,11 +73,11 @@ const Upload = () => {
     };
 
     const handleAnalyze = async ({
-                                     companyName,
-                                     jobTitle,
-                                     jobDescription,
-                                     file,
-                                 }: {
+        companyName,
+        jobTitle,
+        jobDescription,
+        file,
+    }: {
         companyName: string;
         jobTitle: string;
         jobDescription: string;
@@ -49,9 +88,7 @@ const Upload = () => {
         try {
             setStatusText("Uploading the file...");
             const uploadedFile: any = await fs.upload([file]);
-            if (!uploadedFile?.path) {
-                return stopWithError("Failed to upload file");
-            }
+            if (!uploadedFile?.path) return stopWithError("Failed to upload file");
 
             setStatusText("Converting to image...");
             const imageResult = await convertPdfToImage(file);
@@ -61,9 +98,7 @@ const Upload = () => {
 
             setStatusText("Uploading the image...");
             const uploadedImage: any = await fs.upload([imageResult.file]);
-            if (!uploadedImage?.path) {
-                return stopWithError("Failed to upload image");
-            }
+            if (!uploadedImage?.path) return stopWithError("Failed to upload image");
 
             setStatusText("Preparing data...");
             const uuid = generateUUID();
@@ -81,63 +116,51 @@ const Upload = () => {
             await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
             setStatusText("Analyzing...");
-
             const prompt = prepareInstructions({ jobTitle, jobDescription });
 
-            // ✅ timeout + error handling
             const feedback: any = await withTimeout(ai.feedback(uploadedFile.path, prompt), 45000);
-            if (!feedback) {
-                return stopWithError("Failed to analyze resume (empty response)");
-            }
+            if (!feedback) return stopWithError("Failed to analyze resume (empty response)");
 
-            // ✅ Robust extraction: handle different response shapes
             let feedbackText: string | undefined;
 
-            // Common: feedback.message.content is string OR array
             if (feedback?.message?.content) {
                 if (typeof feedback.message.content === "string") {
                     feedbackText = feedback.message.content;
                 } else if (Array.isArray(feedback.message.content)) {
-                    // try first text chunk
                     feedbackText = feedback.message.content.find((c: any) => c?.text)?.text;
                 }
             }
 
-            // Fallbacks if Puter returns other structure
             if (!feedbackText && typeof feedback === "string") feedbackText = feedback;
-            if (!feedbackText && feedback?.content && typeof feedback.content === "string")
+            if (!feedbackText && feedback?.content && typeof feedback.content === "string") {
                 feedbackText = feedback.content;
-
-            if (!feedbackText) {
-                return stopWithError("Could not read AI feedback text");
             }
 
-            try {
-                data.feedback = JSON.parse(feedbackText);
-            } catch (e) {
-                return stopWithError("AI returned invalid JSON feedback");
-            }
+            if (!feedbackText) return stopWithError("Could not read AI feedback text");
 
+            const parsedFeedback = tryParseFeedback(feedbackText);
+            if (!parsedFeedback) return stopWithError("AI returned invalid JSON feedback");
+
+            data.feedback = parsedFeedback;
             await kv.set(`resume:${uuid}`, JSON.stringify(data));
 
             setStatusText("Analysis complete, redirecting...");
-            navigate(`/resume/${uuid}`);
+            navigate(`/resume/${uuid}`, { replace: true });
+
+            setTimeout(() => {
+                if (window.location.pathname.includes("/upload")) {
+                    window.location.href = `/resume/${uuid}`;
+                }
+            }, 300);
         } catch (err: any) {
-            console.error("UPLOAD ANALYZE ERROR:", err);
             stopWithError(err?.message ?? String(err));
-        } finally {
-            // ✅ keep processing true until redirect or error; if redirect happens, component unmounts anyway
-            // If you prefer to stop the animation right before redirect, uncomment next line:
-            // setIsProcessing(false);
         }
     };
 
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const form = e.currentTarget.closest("form");
-        if (!form) return;
-
+        const form = e.currentTarget;
         const formData = new FormData(form);
 
         const companyName = (formData.get("company-name") as string) || "";
@@ -169,12 +192,12 @@ const Upload = () => {
                         <h2>Drop your resume for an ATS score and improvement tips</h2>
                     )}
 
+                    {!isProcessing && statusText.startsWith("Error:") && (
+                        <p className="mt-4 text-red-600 font-medium">{statusText}</p>
+                    )}
+
                     {!isProcessing && (
-                        <form
-                            id="upload-form"
-                            onSubmit={handleSubmit}
-                            className="flex flex-col gap-4 mt-8"
-                        >
+                        <form id="upload-form" onSubmit={handleSubmit} className="flex flex-col gap-4 mt-8">
                             <div className="form-div">
                                 <label htmlFor="company-name">Company Name</label>
                                 <input
@@ -187,12 +210,7 @@ const Upload = () => {
 
                             <div className="form-div">
                                 <label htmlFor="job-title">Job Title</label>
-                                <input
-                                    type="text"
-                                    name="job-title"
-                                    placeholder="Job Title"
-                                    id="job-title"
-                                />
+                                <input type="text" name="job-title" placeholder="Job Title" id="job-title" />
                             </div>
 
                             <div className="form-div">
@@ -210,7 +228,7 @@ const Upload = () => {
                                 <FileUploader onFileSelect={handleFileSelect} />
                             </div>
 
-                            <button className="primary-button" type="submit">
+                            <button className="primary-button" type="submit" disabled={isProcessing}>
                                 Analyze Resume
                             </button>
                         </form>
