@@ -352,7 +352,7 @@ const Upload = () => {
                     {!isProcessing && statusText && (
                         <p
                             className={`mt-4 font-medium ${
-                                statusText.startsWith("Error:") ? "text-red-600" : "text-gray-700"
+                                statusText.startsWith("Error:") ? "text-red-600" : "text-slate-600"
                             }`}
                         >
                             {statusText}

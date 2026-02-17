@@ -13,7 +13,7 @@ const Navbar = () => {
     const user = auth.user;
 
     return (
-        <nav className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-md border-b border-white/40 shadow-sm">
+        <nav className="sticky top-0 z-50 w-full bg-white/70 backdrop-blur-md border-b border-slate-200 shadow-sm">
             <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 
                 {/* Left: Avatar + ResumeAI */}
@@ -22,7 +22,7 @@ const Navbar = () => {
                         <div
                             className="
                 w-9 h-9 rounded-full
-                bg-gradient-to-br from-indigo-500 to-purple-500
+                bg-gradient-to-br from-slate-700 to-slate-900
                 flex items-center justify-center
                 text-white font-semibold text-sm
                 select-none
@@ -33,7 +33,7 @@ const Navbar = () => {
                         </div>
                     )}
 
-                    <Link to="/" className="text-2xl font-bold text-gray-800">
+                    <Link to="/" className="text-2xl font-bold text-slate-800">
                         ResumeAI
                     </Link>
                 </div>

@@ -39,8 +39,8 @@ const WipeApp = () => {
     }
 
     return (
-        <main className="page-shell page-wipe min-h-screen p-8">
-            <div className="max-w-3xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg p-6">
+        <main className="page-shell page-wipe min-h-screen p-8 text-slate-800">
+            <div className="max-w-3xl mx-auto bg-white/95 border border-slate-200 backdrop-blur-sm rounded-2xl shadow-lg p-6">
             Authenticated as: {auth.user?.username}
             <div>Existing files:</div>
             <div className="flex flex-col gap-4">

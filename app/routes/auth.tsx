@@ -26,7 +26,7 @@ const Auth = () => {
     return (
         <main className="page-shell page-auth min-h-screen flex items-center justify-center">
             <div className="gradient-border shadow-lg">
-                <section className="flex flex-col gap-8 bg-white rounded-2xl p-10">
+                <section className="flex flex-col gap-8 bg-white/95 border border-slate-200 rounded-2xl p-10">
                     <div className="flex flex-col items-center gap-2 text-center">
                         <h1>Welcome</h1>
                         <h2>Log In to Continue Your Job Journey</h2>
