@@ -333,7 +333,7 @@ const Upload = () => {
     };
 
     return (
-        <main className="bg-[url('/images/up-new.jpg')] bg-cover">
+        <main className="page-shell page-upload">
             <Navbar />
 
             <section className="main-section">
