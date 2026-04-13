@@ -9,6 +9,12 @@ interface Resume {
 
 interface Feedback {
     overallScore: number;
+    applicationChance?: {
+        level: "high" | "medium" | "low";
+        score: number;
+        explanation: string;
+        signals: string[];
+    };
     ATS: {
         score: number;
         tips: {

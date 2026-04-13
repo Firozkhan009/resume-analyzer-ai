@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1184" viewBox="0 0 1600 1184">
+  <rect width="1600" height="1184" fill="#f7f1e7"/>
+  <rect x="0" y="0" width="1600" height="120" fill="#173f43"/>
+  <text x="800" y="58" text-anchor="middle" font-family="Georgia, serif" font-size="34" font-weight="700" fill="#ffffff">
+    AI-Powered Resume Analyzer for ATS Optimization
+  </text>
+  <text x="800" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" fill="#dfeae6">
+    Firoz Khan Patan | Faculty Advisor: Dr. Krzysztof J. Kochut
+  </text>
+
+  <rect x="40" y="150" width="470" height="410" rx="18" fill="#fffdfa" stroke="#d5cec1" stroke-width="2"/>
+  <rect x="40" y="150" width="470" height="16" rx="18" fill="#9c6644"/>
+  <text x="70" y="205" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#173f43">PROJECT OVERVIEW</text>
+  <text x="70" y="255" font-family="Arial, sans-serif" font-size="21" fill="#334155">
+    <tspan x="70" dy="0">• </tspan><tspan font-weight="700">Overview:</tspan>
+    <tspan> This project develops an AI-powered web</tspan>
+    <tspan x="92" dy="28">application that analyzes resumes against a target</tspan>
+    <tspan x="92" dy="28">job and returns structured feedback for improvement.</tspan>
+  </text>
+  <text x="70" y="370" font-family="Arial, sans-serif" font-size="21" fill="#334155">
+    <tspan x="70" dy="0">• </tspan><tspan font-weight="700">Motivation:</tspan>
+    <tspan> Resume review is often manual, inconsistent,</tspan>
+    <tspan x="92" dy="28">and difficult to tailor for each application,</tspan>
+    <tspan x="92" dy="28">especially before ATS screening.</tspan>
+  </text>
+  <text x="70" y="485" font-family="Arial, sans-serif" font-size="21" fill="#334155">
+    <tspan x="70" dy="0">• </tspan><tspan font-weight="700">Contribution:</tspan>
+    <tspan> The system combines PDF handling, image</tspan>
+    <tspan x="92" dy="28">conversion, AI evaluation, storage, and an interactive</tspan>
+    <tspan x="92" dy="28">dashboard to make resume optimization faster and</tspan>
+    <tspan x="92" dy="28">more repeatable.</tspan>
+  </text>
+
+  <rect x="545" y="150" width="470" height="410" rx="18" fill="#fffdfa" stroke="#d5cec1" stroke-width="2"/>
+  <rect x="545" y="150" width="470" height="16" rx="18" fill="#3e6b6f"/>
+  <text x="575" y="205" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#173f43">KEY FEATURES</text>
+  <text x="575" y="255" font-family="Arial, sans-serif" font-size="22" fill="#6b7280">Pending revision</text>
+
+  <rect x="1050" y="150" width="510" height="410" rx="18" fill="#fffdfa" stroke="#d5cec1" stroke-width="2"/>
+  <rect x="1050" y="150" width="510" height="16" rx="18" fill="#6f8c69"/>
+  <text x="1080" y="205" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#173f43">WHAT IS RESUMIND?</text>
+  <text x="1080" y="255" font-family="Arial, sans-serif" font-size="21" fill="#334155">
+    <tspan x="1080" dy="0">Resumind is a React and TypeScript application</tspan>
+    <tspan x="1080" dy="28">for AI-driven resume review. It integrates</tspan>
+    <tspan x="1080" dy="28">authentication, file handling, PDF-to-image</tspan>
+    <tspan x="1080" dy="28">conversion, persistent storage, and structured</tspan>
+    <tspan x="1080" dy="28">feedback generation in one workflow.</tspan>
+  </text>
+
+  <rect x="40" y="600" width="470" height="245" rx="18" fill="#f2eee6" stroke="#d5cec1" stroke-width="2" stroke-dasharray="10 6"/>
+  <text x="275" y="700" text-anchor="middle" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#6b7280">SYSTEM WORKFLOW</text>
+  <text x="275" y="745" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#9ca3af">Removed as requested</text>
+
+  <rect x="545" y="600" width="470" height="245" rx="18" fill="#fffdfa" stroke="#d5cec1" stroke-width="2"/>
+  <rect x="545" y="600" width="470" height="16" rx="18" fill="#4f7c82"/>
+  <text x="575" y="655" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#173f43">TECH STACK</text>
+  <text x="575" y="705" font-family="Arial, sans-serif" font-size="22" fill="#6b7280">Pending revision</text>
+
+  <rect x="1050" y="600" width="510" height="245" rx="18" fill="#fffdfa" stroke="#d5cec1" stroke-width="2"/>
+  <rect x="1050" y="600" width="510" height="16" rx="18" fill="#b07a4f"/>
+  <text x="1080" y="655" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#173f43">FUTURE ENHANCEMENTS</text>
+  <text x="1080" y="705" font-family="Arial, sans-serif" font-size="20" fill="#334155">
+    <tspan x="1080" dy="0">Benchmark the scoring pipeline on larger</tspan>
+    <tspan x="1080" dy="26">resume datasets. Add side-by-side resume</tspan>
+    <tspan x="1080" dy="26">version comparison, stronger recruiter-facing</tspan>
+    <tspan x="1080" dy="26">explanations, and broader model support.</tspan>
+  </text>
+
+  <rect x="40" y="885" width="730" height="230" rx="18" fill="#e8ece7" stroke="#c8d1cb" stroke-width="2"/>
+  <text x="405" y="948" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#173f43">Project Screen Area</text>
+  <text x="405" y="995" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#4b5563">Reference image slot retained for app screenshot</text>
+
+  <rect x="805" y="885" width="755" height="230" rx="18" fill="#e8ece7" stroke="#c8d1cb" stroke-width="2"/>
+  <text x="1182" y="948" text-anchor="middle" font-family="Arial, sans-serif" font-size="30" font-weight="700" fill="#173f43">Resume Preview Area</text>
+  <text x="1182" y="995" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" fill="#4b5563">Reference image slot retained for resume screenshot</text>
+</svg>

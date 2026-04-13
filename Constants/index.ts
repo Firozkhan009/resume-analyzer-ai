@@ -13,6 +13,12 @@ export type FeedbackSection = {
 
 export type Feedback = {
     overallScore: number; // 0-100
+    applicationChance?: {
+        level: "high" | "medium" | "low";
+        score: number;
+        explanation: string;
+        signals: string[];
+    };
     ATS: FeedbackSection;
     toneAndStyle: FeedbackSection;
     content: FeedbackSection;
@@ -125,6 +131,12 @@ export const resumes: Resume[] = [
 export const AIResponseFormat = `
 {
   "overallScore": 0,
+  "applicationChance": {
+    "level": "medium",
+    "score": 0,
+    "explanation": "string",
+    "signals": ["string", "string", "string"]
+  },
   "ATS": {
     "score": 0,
     "tips": [
@@ -167,6 +179,12 @@ export const prepareInstructions = ({
 }) => {
     return `
 You are an ATS + resume reviewer. Analyze the resume against the target job.
+Also estimate the candidate's application chance using a TimeMCL-inspired multi-outcome approach:
+- Treat high, medium, and low as three possible matching outcomes.
+- Compare the resume to the job description across skills, experience depth, seniority, domain fit, keywords, and evidence of impact.
+- Select the best-supported outcome as applicationChance.level.
+- Use applicationChance.score as the confidence/fit score from 0 to 100.
+- This is not a hiring guarantee; it is a resume-to-job-description fit estimate.
 
 Target Job Title: ${jobTitle}
 
@@ -185,6 +203,8 @@ ${AIResponseFormat}
 
 Rules:
 - Scores must be integers from 0 to 100.
+- applicationChance.level must be exactly one of: high, medium, low.
+- applicationChance.signals must include 2 to 4 short reasons that support the chance level.
 - Scores must be realistic and evidence-based. Do not return all 0 scores.
 - Provide 3 to 4 tips per section.
 - Every tip must include: type, tip, explanation.

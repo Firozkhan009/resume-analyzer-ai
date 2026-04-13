@@ -1,0 +1,9 @@
+Author(s): Firoz Khan Patan
+Other author(s): None listed
+Faculty Advisor: Dr. Krzysztof J. Kochut
+
+Poster Title:
+Resumind: AI-Powered Resume Analyzer for ATS Optimization
+
+Abstract:
+Resumind is a web application that helps job seekers evaluate resumes against target roles using AI-assisted analysis. The system accepts a PDF resume, converts it into an image for processing, and generates structured feedback across ATS compatibility, tone and style, content quality, structure, and skills alignment. Built with React Router, TypeScript, Zustand, and Puter services, the platform combines authentication, file storage, key-value data persistence, and AI feedback in one workflow. The interface lets users upload a resume, enter company and job details, review scores, and inspect actionable improvement tips. The project demonstrates how modern web technologies can turn manual resume review into a faster, more personalized, and data-driven experience.

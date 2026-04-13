@@ -106,6 +106,12 @@ const clampScore = (value: unknown): number => {
     return Math.max(0, Math.min(100, Math.round(num)));
 };
 
+const chanceLevelFromScore = (score: number): "high" | "medium" | "low" => {
+    if (score >= 70) return "high";
+    if (score >= 45) return "medium";
+    return "low";
+};
+
 type NormalizedTip = {
     type: "good" | "improve";
     tip: string;
@@ -151,6 +157,44 @@ const normalizeTips = (tips: unknown, minCount = 3) => {
     }
 
     return normalized.slice(0, 4);
+};
+
+const normalizeApplicationChance = (
+    rawChance: unknown,
+    scores: { ats: number; skills: number; content: number; overall: number }
+): Feedback["applicationChance"] => {
+    const raw = rawChance && typeof rawChance === "object" ? (rawChance as Record<string, unknown>) : null;
+    const fallbackScore = clampScore(
+        scores.ats * 0.35 + scores.skills * 0.3 + scores.content * 0.2 + scores.overall * 0.15
+    );
+
+    const rawScore = clampScore(raw?.score ?? raw?.fitScore ?? raw?.confidence ?? fallbackScore);
+    const levelInput = typeof raw?.level === "string" ? raw.level.toLowerCase() : "";
+    const level =
+        levelInput === "high" || levelInput === "medium" || levelInput === "low"
+            ? levelInput
+            : chanceLevelFromScore(rawScore);
+
+    const explanation =
+        (typeof raw?.explanation === "string" && raw.explanation.trim()) ||
+        "Estimated from how strongly the resume aligns with the target role's skills, keywords, and evidence of impact.";
+
+    const signals = Array.isArray(raw?.signals)
+        ? raw.signals.filter((signal): signal is string => typeof signal === "string" && signal.trim().length > 0)
+        : [];
+
+    const fallbackSignals = [
+        `ATS alignment is ${scores.ats}/100.`,
+        `Skills alignment is ${scores.skills}/100.`,
+        `Content strength is ${scores.content}/100.`,
+    ];
+
+    return {
+        level,
+        score: rawScore || fallbackScore,
+        explanation,
+        signals: (signals.length ? signals : fallbackSignals).slice(0, 4),
+    };
 };
 
 const normalizeFeedback = (input: unknown): Feedback | null => {
@@ -201,6 +245,16 @@ const normalizeFeedback = (input: unknown): Feedback | null => {
             5;
         normalized.overallScore = clampScore(average);
     }
+
+    normalized.applicationChance = normalizeApplicationChance(
+        raw.applicationChance ?? raw.application_chance ?? raw.jobChance ?? raw.job_chance,
+        {
+            ats: normalized.ATS.score,
+            skills: normalized.skills.score,
+            content: normalized.content.score,
+            overall: normalized.overallScore,
+        }
+    );
 
     const allZero =
         normalized.overallScore === 0 &&

@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1000" viewBox="0 0 1500 1000">
+  <defs>
+    <style>
+      .bg { fill: #f6f1e8; }
+      .title { font: 700 42px Arial, sans-serif; fill: #102f33; }
+      .label { font: 700 28px Arial, sans-serif; fill: #102f33; }
+      .sub { font: 22px Arial, sans-serif; fill: #324556; }
+      .card { fill: #fffdfa; stroke: #cfc5b7; stroke-width: 4; rx: 22; }
+      .c1 { fill: #173f43; }
+      .c2 { fill: #9c6644; }
+      .c3 { fill: #5d7f63; }
+      .c4 { fill: #6d5b7a; }
+      .c5 { fill: #497b89; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1500" height="1000"/>
+  <text x="750" y="90" text-anchor="middle" class="title">Evaluation Dimensions</text>
+
+  <rect x="210" y="190" width="220" height="180" class="card"/>
+  <rect x="210" y="190" width="220" height="18" class="c1"/>
+  <text x="320" y="262" text-anchor="middle" class="label">ATS</text>
+  <text x="320" y="305" text-anchor="middle" class="sub">keywords</text>
+  <text x="320" y="336" text-anchor="middle" class="sub">format</text>
+
+  <rect x="470" y="190" width="220" height="180" class="card"/>
+  <rect x="470" y="190" width="220" height="18" class="c2"/>
+  <text x="580" y="262" text-anchor="middle" class="label">Content</text>
+  <text x="580" y="305" text-anchor="middle" class="sub">relevance</text>
+  <text x="580" y="336" text-anchor="middle" class="sub">impact</text>
+
+  <rect x="730" y="190" width="220" height="180" class="card"/>
+  <rect x="730" y="190" width="220" height="18" class="c3"/>
+  <text x="840" y="262" text-anchor="middle" class="label">Structure</text>
+  <text x="840" y="305" text-anchor="middle" class="sub">layout</text>
+  <text x="840" y="336" text-anchor="middle" class="sub">clarity</text>
+
+  <rect x="990" y="190" width="220" height="180" class="card"/>
+  <rect x="990" y="190" width="220" height="18" class="c4"/>
+  <text x="1100" y="262" text-anchor="middle" class="label">Skills</text>
+  <text x="1100" y="305" text-anchor="middle" class="sub">matching</text>
+  <text x="1100" y="336" text-anchor="middle" class="sub">coverage</text>
+
+  <rect x="535" y="430" width="430" height="170" class="card"/>
+  <rect x="535" y="430" width="430" height="18" class="c5"/>
+  <text x="750" y="502" text-anchor="middle" class="label">Tone and Style</text>
+  <text x="750" y="545" text-anchor="middle" class="sub">clarity</text>
+  <text x="750" y="576" text-anchor="middle" class="sub">professionalism</text>
+
+  <rect x="340" y="690" width="820" height="170" class="card"/>
+  <rect x="340" y="690" width="820" height="18" class="c1"/>
+  <text x="750" y="764" text-anchor="middle" class="label">Combined Output</text>
+  <text x="750" y="808" text-anchor="middle" class="sub">Overall score with targeted suggestions</text>
+</svg>
