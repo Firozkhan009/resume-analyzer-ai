@@ -7,6 +7,8 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 REFERENCE = Path("/Users/firozkhanpatan/Downloads/Poster_Shaik.pptx")
+# If this helper is used for a class submission, cite the original poster/template
+# owner or replace the source deck with an original layout before submitting.
 OUTPUT = ROOT / "Poster_Patan.pptx"
 
 NS = {
@@ -22,7 +24,7 @@ for prefix, uri in NS.items():
 
 TEXT_BY_SHAPE_ID = {
     "2": "Resume Analyzer AI",
-    "4": "AI-Powered Resume Analyzer for ATS Optimization",
+    "4": "Resume Review with ATS and Job-Fit Feedback",
     "5": "Firoz Khan Patan",
     "6": "PROJECT OVERVIEW",
     "10": "Faculty Advisor",
@@ -37,9 +39,9 @@ TEXT_BY_SHAPE_ID = {
     ),
     "33": "WHAT IS RESUMIND?",
     "34": (
-        "Resumind is a React and TypeScript application for AI-driven resume review. It integrates "
-        "authentication, file handling, PDF-to-image conversion, persistent storage, and structured "
-        "feedback generation in one workflow."
+        "The Resume Analyzer reviews a PDF resume against a specific job posting. It combines authentication, "
+        "file handling, PDF conversion, saved analysis records, and structured AI-assisted feedback "
+        "in one workflow."
     ),
     "1074": "",
     "1090": "",
@@ -113,24 +115,24 @@ def set_overview_shape(sp: ET.Element) -> None:
         [
             ("Overview: ", True),
             (
-                "This project develops an AI-powered web application that analyzes resumes against a "
-                "target job and returns structured feedback for improvement.",
+                "This project builds a web application that reviews resumes against a target role "
+                "and returns structured revision feedback.",
                 False,
             ),
         ],
         [
             ("Motivation: ", True),
             (
-                "Resume review is often manual, inconsistent, and difficult to tailor for each "
-                "application, especially before ATS screening.",
+                "Applicants often reuse one resume and have little visibility into ATS or role-fit "
+                "issues before applying.",
                 False,
             ),
         ],
         [
             ("Contribution: ", True),
             (
-                "The system combines PDF handling, image conversion, AI evaluation, storage, and an "
-                "interactive dashboard to make resume optimization faster and more repeatable.",
+                "The system combines PDF handling, image conversion, saved records, AI-assisted "
+                "review, and an interactive dashboard for repeatable resume revision.",
                 False,
             ),
         ],
@@ -159,7 +161,7 @@ def updated_core_xml(source: bytes) -> bytes:
     title = root.find("./dc:title", NS)
     creator = root.find("./dc:creator", NS)
     if title is not None:
-        title.text = "Resumind: AI-Powered Resume Analyzer for ATS Optimization"
+        title.text = "AI-Powered Resume Analyzer: ATS and Job-Fit Feedback"
     if creator is not None:
         creator.text = "Firoz Khan Patan"
     return ET.tostring(root, encoding="utf-8", xml_declaration=True)

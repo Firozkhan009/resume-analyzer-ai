@@ -392,7 +392,7 @@ const Upload = () => {
 
             <section className="main-section">
                 <div className="page-heading py-16">
-                    <h1>Smart feedback for your dream job</h1>
+                    <h1>Check how your resume fits the role</h1>
 
                     {isProcessing ? (
                         <>
@@ -400,7 +400,7 @@ const Upload = () => {
                             <img src="/images/resume-scan.gif" className="w-full" />
                         </>
                     ) : (
-                        <h2>Drop your resume for an ATS score and improvement tips</h2>
+                        <h2>Upload a PDF and get practical feedback before you apply.</h2>
                     )}
 
                     {!isProcessing && statusText && (
@@ -420,7 +420,7 @@ const Upload = () => {
                                 <input
                                     type="text"
                                     name="company-name"
-                                    placeholder="Company Name"
+                                    placeholder="e.g. Google, Mayo Clinic, Deloitte"
                                     id="company-name"
                                     value={companyName}
                                     onChange={(e) => setCompanyName(e.target.value)}
@@ -432,7 +432,7 @@ const Upload = () => {
                                 <input
                                     type="text"
                                     name="job-title"
-                                    placeholder="Job Title"
+                                    placeholder="e.g. Frontend Developer"
                                     id="job-title"
                                     value={jobTitle}
                                     onChange={(e) => setJobTitle(e.target.value)}
@@ -444,7 +444,7 @@ const Upload = () => {
                                 <textarea
                                     rows={5}
                                     name="job-description"
-                                    placeholder="Job Description"
+                                    placeholder="Paste the posting or the key requirements"
                                     id="job-description"
                                     value={jobDescription}
                                     onChange={(e) => setJobDescription(e.target.value)}

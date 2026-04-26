@@ -32,7 +32,7 @@ const getFallbackChance = (feedback: Feedback): ApplicationChanceData => {
         level: getChanceLevel(score),
         score,
         explanation:
-            "Estimated from the existing resume review scores because this analysis was created before job-chance scoring was added.",
+            "Estimated from the review scores available for this saved resume.",
         signals: [
             `ATS alignment is ${feedback.ATS.score}/100.`,
             `Skills alignment is ${feedback.skills.score}/100.`,
@@ -49,9 +49,9 @@ const ApplicationChance = ({ feedback }: { feedback: Feedback }) => {
             <div className="flex flex-row items-start justify-between gap-4 max-sm:flex-col">
                 <div className="flex flex-col gap-2">
                     <p className="text-sm font-semibold uppercase text-slate-500">
-                        TimeMCL job-fit estimate
+                        Resume-to-role fit
                     </p>
-                    <h2 className="text-2xl font-bold">Chance of Getting the Job</h2>
+                    <h2 className="text-2xl font-bold">Application Fit Estimate</h2>
                     <p className="text-slate-600">{chance.explanation}</p>
                 </div>
 

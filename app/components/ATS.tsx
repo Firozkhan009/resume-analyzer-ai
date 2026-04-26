@@ -27,10 +27,10 @@ const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
 
     // Determine subtitle based on score
     const subtitle = score > 69
-        ? 'Great Job!'
+        ? 'Strong ATS Match'
         : score > 49
-            ? 'Good Start'
-            : 'Needs Improvement';
+            ? 'Some Gaps to Fix'
+            : 'Needs More ATS Signals';
 
     return (
         <div className={`bg-gradient-to-b ${gradientClass} to-white border border-slate-200 rounded-2xl shadow-md w-full p-6 text-slate-800`}>
@@ -46,7 +46,7 @@ const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
             <div className="mb-6">
                 <h3 className="text-xl font-semibold mb-2">{subtitle}</h3>
                 <p className="text-slate-600 mb-4">
-                    This score represents how well your resume is likely to perform in Applicant Tracking Systems used by employers.
+                    This score estimates how clearly the resume matches common ATS signals for the target role.
                 </p>
 
                 {/* Suggestions list */}
@@ -68,7 +68,7 @@ const ATS: React.FC<ATSProps> = ({ score, suggestions }) => {
 
             {/* Closing encouragement */}
             <p className="text-slate-700 italic">
-                Keep refining your resume to improve your chances of getting past ATS filters and into the hands of recruiters.
+                Use these notes as a revision guide, then rescan after tightening the role-specific details.
             </p>
         </div>
     )

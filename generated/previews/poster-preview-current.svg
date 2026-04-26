@@ -40,7 +40,7 @@
   <rect x="1050" y="150" width="510" height="16" rx="18" fill="#6f8c69"/>
   <text x="1080" y="205" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#173f43">WHAT IS RESUMIND?</text>
   <text x="1080" y="255" font-family="Arial, sans-serif" font-size="21" fill="#334155">
-    <tspan x="1080" dy="0">Resumind is a React and TypeScript application</tspan>
+    <tspan x="1080" dy="0">AI-Powered Resume Analyzer is a React and TypeScript application</tspan>
     <tspan x="1080" dy="28">for AI-driven resume review. It integrates</tspan>
     <tspan x="1080" dy="28">authentication, file handling, PDF-to-image</tspan>
     <tspan x="1080" dy="28">conversion, persistent storage, and structured</tspan>

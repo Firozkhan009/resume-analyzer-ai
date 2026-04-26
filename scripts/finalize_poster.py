@@ -38,10 +38,9 @@ TEXT_REPLACEMENTS = {
     ),
     "33": "WHAT IS THE RESUME ANALYZER?",
     "34": (
-        "Resume Analyzer AI is a web-based application that helps users evaluate resumes against "
-        "a target job description using AI-generated feedback. It accepts a PDF resume, analyzes "
-        "it across ATS compatibility, tone and style, content, structure, and skills, and returns "
-        "structured suggestions to improve resume quality and job alignment."
+        "AI-Powered Resume Analyzer is a web application for reviewing a PDF resume against a specific job posting. "
+        "It checks ATS readiness, writing tone, content, structure, skills, and job fit, then "
+        "returns section scores and revision notes the user can apply before submitting."
     ),
     "1074": "CONCEPTUAL WORKFLOW",
     "1095": "RESUME EVALUATION DIMENSIONS",
@@ -63,9 +62,9 @@ BULLET_PARAGRAPHS = {
         "File storage and key-value persistence for saved analyses",
     ],
     "1090": [
-        "Analyzes resumes against a target job instead of giving generic feedback",
-        "Returns structured section scores for ATS, content, structure, tone, and skills",
-        "Creates a faster and more repeatable review workflow for job seekers",
+        "Centers feedback on the exact role instead of a generic resume checklist",
+        "Separates ATS, content, structure, tone, skills, and fit signals",
+        "Gives job seekers a repeatable way to revise before applying",
     ],
 }
 
@@ -226,7 +225,7 @@ def update_core_xml(source: bytes) -> bytes:
     title = root.find("./dc:title", NS)
     creator = root.find("./dc:creator", NS)
     if title is not None:
-        title.text = "AI-Powered Resume Analyzer for ATS Optimization"
+        title.text = "Resume Review with ATS and Job-Fit Feedback"
     if creator is not None:
         creator.text = "Firoz Khan Patan"
     return ET.tostring(root, encoding="utf-8", xml_declaration=True)

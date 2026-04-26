@@ -3,8 +3,8 @@ import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router";
 
 export const meta = () => [
-    { title: "Resumind | Auth" },
-    { name: "description", content: "Log into your account" },
+    { title: "AI-Powered Resume Analyzer | Auth" },
+    { name: "description", content: "Sign in to review and save resume feedback." },
 ];
 
 const Auth = () => {
@@ -29,7 +29,7 @@ const Auth = () => {
                 <section className="flex flex-col gap-8 bg-white/95 border border-slate-200 rounded-2xl p-10">
                     <div className="flex flex-col items-center gap-2 text-center">
                         <h1>Welcome</h1>
-                        <h2>Log In to Continue Your Job Journey</h2>
+                        <h2>Sign in to review and save your resume scans.</h2>
                     </div>
 
                     <div>
@@ -39,11 +39,11 @@ const Auth = () => {
                             </button>
                         ) : auth.isAuthenticated ? (
                             <button className="auth-button" onClick={auth.signOut}>
-                                <p>Log Out</p>
+                                <p>Sign Out</p>
                             </button>
                         ) : (
                             <button className="auth-button" onClick={auth.signIn}>
-                                <p>Log In</p>
+                                <p>Sign In</p>
                             </button>
                         )}
                     </div>

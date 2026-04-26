@@ -7,7 +7,7 @@ import Details from "~/components/Details";
 import ApplicationChance from "~/components/ApplicationChance";
 
 export const meta = () => [
-    { title: "Resumind | Review" },
+    { title: "AI-Powered Resume Analyzer | Review" },
     { name: "description", content: "Detailed overview of your resume" },
 ];
 

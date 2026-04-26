@@ -13,20 +13,20 @@ SLIDE_W = 12_192_000
 SLIDE_H = 6_858_000
 
 
-TITLE = "Resumind: AI-Powered Resume Analyzer for ATS Optimization"
+TITLE = "AI-Powered Resume Analyzer: ATS and Job-Fit Feedback"
 AUTHORS = "Firoz Khan Patan"
 FACULTY_ADVISOR = "Dr. Krzysztof J. Kochut"
 ABSTRACT = (
-    "Resumind is a web application that helps job seekers evaluate resumes against "
-    "target roles using AI-assisted analysis. The system accepts a PDF resume, "
-    "converts it into an image for processing, and generates structured feedback "
-    "across ATS compatibility, tone and style, content quality, structure, and "
-    "skills alignment. Built with React Router, TypeScript, Zustand, and Puter "
-    "services, the platform combines authentication, file storage, key-value data "
-    "persistence, and AI feedback in one workflow. The interface lets users upload "
-    "a resume, enter company and job details, review scores, and inspect actionable "
-    "improvement tips. The project demonstrates how modern web technologies can turn "
-    "manual resume review into a faster, more personalized, and data-driven experience."
+    "AI-Powered Resume Analyzer is a web application for job seekers who want a clearer read on a "
+    "resume before sending it to an employer. The user uploads a PDF resume, enters "
+    "the target company, role, and job description, and receives a structured review "
+    "across ATS readiness, writing tone, content strength, layout, skill match, and "
+    "overall job fit. The app uses React Router, TypeScript, Zustand, PDF processing, "
+    "and Puter services for authentication, file storage, key-value persistence, and "
+    "AI-assisted feedback. The Resume Analyzer is designed as a practical review aid: it "
+    "highlights what already works, points out weak or missing evidence, and helps "
+    "users revise a resume for a specific opportunity rather than relying on one "
+    "generic version."
 )
 
 
@@ -208,8 +208,8 @@ def slide_xml() -> str:
         top_y,
         "Problem",
         [
-            "Resume review is slow, subjective, and difficult to tailor for each role.",
-            "Applicants also struggle to understand ATS expectations before applying.",
+            "Many applicants send the same resume to every role.",
+            "ATS requirements are hard to judge before an application is submitted.",
         ],
         "9C6644",
     )
@@ -219,8 +219,8 @@ def slide_xml() -> str:
         top_y,
         "Solution",
         [
-            "Resumind analyzes uploaded PDF resumes against a job title and description.",
-            "It returns section scores plus concrete suggestions for improvement.",
+            "The Resume Analyzer checks an uploaded PDF against a real job description.",
+            "It returns section scores, fit signals, and revision notes.",
         ],
         "3E6B6F",
     )
@@ -268,7 +268,7 @@ def slide_xml() -> str:
         "Impact",
         [
             "Turns resume review into a guided and repeatable process.",
-            "Helps users align resumes to roles faster with evidence-based feedback.",
+            "Helps users revise resumes around role-specific evidence.",
         ],
         "B07A4F",
     )

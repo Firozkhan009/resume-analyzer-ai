@@ -178,13 +178,13 @@ export const prepareInstructions = ({
     jobDescription: string;
 }) => {
     return `
-You are an ATS + resume reviewer. Analyze the resume against the target job.
-Also estimate the candidate's application chance using a TimeMCL-inspired multi-outcome approach:
+You are a careful resume reviewer. Analyze the resume against the target job.
+Also estimate the resume-to-role fit using a three-outcome approach:
 - Treat high, medium, and low as three possible matching outcomes.
 - Compare the resume to the job description across skills, experience depth, seniority, domain fit, keywords, and evidence of impact.
 - Select the best-supported outcome as applicationChance.level.
-- Use applicationChance.score as the confidence/fit score from 0 to 100.
-- This is not a hiring guarantee; it is a resume-to-job-description fit estimate.
+- Use applicationChance.score as the fit score from 0 to 100.
+- This is not a hiring guarantee. It only estimates how well the resume matches the job description.
 
 Target Job Title: ${jobTitle}
 
